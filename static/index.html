@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Parcel Box – Edge AI Biometric Delivery Kiosk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="ambient-bg">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+  </div>
+
+  <div class="app-container">
+    <!-- Top Kiosk Header -->
+    <header class="kiosk-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">SMART PARCEL BOX</h1>
+          <p class="brand-subtitle">Edge AI Facial Biometrics</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="status-pill" id="system-status-pill">
+          <span class="status-dot pulse"></span>
+          <span id="system-status-text">System Ready</span>
+        </div>
+        <div class="live-clock" id="live-clock">--:--:--</div>
+        <button class="icon-btn" id="btn-toggle-hardware" title="View Locker Hardware Status">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span>Lockers</span>
+        </button>
+        <button class="icon-btn" id="btn-toggle-audit" title="Security Audit Logs">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <span>Audit Log</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Dynamic Screen Container -->
+    <main class="screen-viewport">
+
+      <!-- ================= SCREEN 1: START ================= -->
+      <section id="screen-start" class="screen active">
+        <div class="hero-card">
+          <div class="hero-badge">
+            <span class="sparkle-icon">✨</span> Edge AI Facial Biometrics Kiosk
+          </div>
+          <h2 class="hero-title">SMART PARCEL DELIVERY<br><span class="gradient-text">FAST, CONTACTLESS & SECURE</span></h2>
+          <p class="hero-desc">
+            Autonomous parcel locker kiosk powered by InsightFace AI biometric authentication, military-grade Fernet encryption at rest, and real-time hardware sensor confirmation.
+          </p>
+
+          <div class="start-action-wrap">
+            <button id="btn-start" class="btn-giant-start">
+              <span class="btn-shine"></span>
+              <span class="btn-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              </span>
+              <span class="btn-text">START TRANSACTION</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SCREEN 2: ROLE SELECTION ================= -->
+      <section id="screen-role" class="screen">
+        <div class="screen-header-center">
+          <span class="step-indicator">STEP 1 / 3</span>
+          <h2 class="screen-title">Please Select Your Role</h2>
+          <p class="screen-subtitle">Choose whether you are depositing a parcel as a Shipper or collecting one as a Receiver</p>
+        </div>
+
+        <div class="roles-grid">
+          <!-- Card Shipper -->
+          <div class="role-card" id="card-role-shipper">
+            <div class="role-badge shipper">Delivery</div>
+            <div class="role-icon-box shipper-glow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="1" y="3" width="15" height="13"></rect>
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                <circle cx="18.5" cy="18.5" r="2.5"></circle>
+              </svg>
+            </div>
+            <h3 class="role-name">SHIPPER</h3>
+            <p class="role-description">Couriers & delivery personnel depositing packages into lockers for residents.</p>
+            
+            <button class="btn-role shipper-btn">Select Shipper</button>
+          </div>
+
+          <!-- Card Receiver -->
+          <div class="role-card" id="card-role-receiver">
+            <div class="role-badge receiver">Pickup</div>
+            <div class="role-icon-box receiver-glow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <h3 class="role-name">RECEIVER</h3>
+            <p class="role-description">Residents & customers retrieving delivered packages waiting in the lockers.</p>
+
+            <button class="btn-role receiver-btn">Select Receiver</button>
+          </div>
+        </div>
+
+        <div class="screen-footer-center">
+          <button class="btn-secondary" id="btn-back-to-start">
+            ← Return to Start Screen
+          </button>
+        </div>
+      </section>
+
+      <!-- ================= SCREEN 3: LIVE FACE DETECTION ================= -->
+      <section id="screen-face" class="screen">
+        <div class="face-layout">
+          <div class="camera-stage">
+            <div class="camera-wrapper">
+              <!-- Preview frames are captured and annotated by the edge device. -->
+              <canvas id="camera-overlay"></canvas>
+
+              <!-- Futuristic HUD Scanner Graphic -->
+              <div class="hud-overlay">
+                <div class="hud-corner top-left"></div>
+                <div class="hud-corner top-right"></div>
+                <div class="hud-corner bottom-left"></div>
+                <div class="hud-corner bottom-right"></div>
+                <div class="hud-scan-line"></div>
+                <div class="hud-center-reticle"></div>
+              </div>
+
+              <!-- Live Badge Info -->
+              <div class="cam-status-overlay">
+                <div class="cam-badge" id="cam-detection-status">
+                  <span class="dot-warn"></span> Scanning for face...
+                </div>
+              </div>
+            </div>
+
+            <!-- Attempt indicators -->
+            <div class="attempt-bar">
+              <span class="attempt-label">Consecutive failed attempts:</span>
+              <div class="attempt-dots" id="attempt-dots">
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
+                <span class="dot" data-index="3"></span>
+                <span class="dot" data-index="4"></span>
+                <span class="dot" data-index="5"></span>
+              </div>
+              <span class="attempt-count" id="attempt-count-text">0 / 5</span>
+            </div>
+          </div>
+
+          <!-- Side Control & Notification Panel -->
+          <div class="face-sidebar">
+            <div class="panel-box role-info-box">
+              <span class="tag-role" id="current-role-tag">SHIPPER</span>
+              <h3 class="sidebar-title" id="face-mode-title">Face Authentication</h3>
+              <p class="sidebar-desc" id="face-mode-desc">
+                Please look directly at the camera to authenticate your identity.
+              </p>
+            </div>
+
+            <!-- Match Card (shown on recognition) -->
+            <div class="match-card hidden" id="match-card">
+              <div class="match-header">
+                <div class="match-avatar-circle">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <div>
+                  <h4 class="match-name" id="match-user-name">John Doe</h4>
+                  <p class="match-role" id="match-user-role">Shipper • Verified</p>
+                </div>
+              </div>
+              <div class="match-stats">
+                <div class="match-stat">
+                  <span>Confidence:</span>
+                  <strong id="match-confidence">96.4%</strong>
+                </div>
+                <div class="match-stat">
+                  <span>Phone:</span>
+                  <strong id="match-phone">***678</strong>
+                </div>
+              </div>
+              <button class="btn-primary w-full" id="btn-confirm-match">Continue Transaction →</button>
+            </div>
+
+            <!-- Register Face Prompt Box (shown after 5 failed attempts) -->
+            <div class="register-prompt-box hidden" id="register-prompt-box">
+              <div class="warn-icon">⚠️</div>
+              <h4>Face Not Recognized in Database</h4>
+              <p>Your face has not been registered in the database yet. You can register now directly using the live camera.</p>
+              <button class="btn-accent-glow w-full" id="btn-trigger-register">
+                📸 Register New Face (Live Camera)
+              </button>
+            </div>
+
+            <!-- Cancel / Switch Role -->
+            <div class="sidebar-bottom-actions">
+              <button class="btn-secondary w-full" id="btn-cancel-face">
+                Cancel & Return
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SCREEN 4: LIVE REGISTRATION ================= -->
+      <section id="screen-register" class="screen">
+        <div class="register-layout">
+          <div class="reg-camera-panel">
+            <div class="reg-cam-box">
+              <canvas id="reg-canvas-overlay"></canvas>
+              
+              <!-- Circular Registration Progress Indicator -->
+              <div class="reg-progress-circle-wrap">
+                <div class="reg-counter-text">
+                  <span id="reg-frames-count">0</span><span class="reg-slash">/</span><span>5</span>
+                  <small>Valid Frames</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="reg-live-instructions">
+              <div class="instruction-step">
+                <span class="step-num">1</span>
+                <span>Live camera only (No file upload permitted)</span>
+              </div>
+              <div class="instruction-step">
+                <span class="step-num">2</span>
+                <span>Slightly move head or blink for liveness verification</span>
+              </div>
+              <div class="instruction-step">
+                <span class="step-num">3</span>
+                <span>Ensure good lighting and avoid blur</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Registration Form & Progress Info -->
+          <div class="reg-form-panel">
+            <div class="panel-box">
+              <span class="tag-role" id="reg-role-tag">SHIPPER REGISTRATION</span>
+              <h3 class="panel-heading">Live Face Registration</h3>
+              <p class="panel-subtext">Capturing 5 biometric frames, verifying liveness, and screening for duplicates.</p>
+              
+              <!-- Quality Status Meter -->
+              <div class="quality-meter-box">
+                <div class="quality-label-row">
+                  <span>Face Quality Score:</span>
+                  <strong id="reg-quality-val">0%</strong>
+                </div>
+                <div class="meter-track">
+                  <div class="meter-bar" id="reg-quality-bar" style="width: 0%"></div>
+                </div>
+                <p class="liveness-status" id="reg-liveness-status" aria-live="polite">
+                  Anti-spoofing check will appear when a face is detected.
+                </p>
+              </div>
+
+              <!-- Duplicate warning alert if duplicate found -->
+              <div class="duplicate-alert hidden" id="duplicate-alert">
+                <div class="alert-icon">🚫</div>
+                <div class="alert-content">
+                  <strong>Duplicate Face Detected!</strong>
+                  <p id="duplicate-alert-msg">This face is already registered to another user in the system.</p>
+                </div>
+              </div>
+
+              <!-- Registration Inputs (Active after 5 valid frames collected) -->
+              <form id="form-register-user" class="reg-form-fields disabled-form">
+                <div class="form-group">
+                  <label for="reg-input-name">Full Name *</label>
+                  <input type="text" id="reg-input-name" placeholder="e.g. Alexander Smith" required disabled>
+                </div>
+
+                <div class="form-group">
+                  <label for="reg-input-phone">Phone Number *</label>
+                  <input type="tel" id="reg-input-phone" placeholder="e.g. 0912345678" required disabled>
+                </div>
+
+                <div class="form-group">
+                  <label for="reg-input-unit">Management Unit / Company *</label>
+                  <input type="text" id="reg-input-unit" placeholder="e.g. DHL Express / FedEx / Horizon Tower" required disabled>
+                </div>
+
+                <div class="form-group" id="group-external-id">
+                  <label for="reg-input-extid" id="label-extid">Shipper ID *</label>
+                  <input type="text" id="reg-input-extid" placeholder="e.g. SHIP-1029" required disabled>
+                </div>
+
+                <div class="form-actions">
+                  <button type="submit" id="btn-submit-registration" class="btn-primary w-full" disabled>
+                    Complete Registration & Re-Authenticate →
+                  </button>
+                  <button type="button" id="btn-cancel-registration" class="btn-secondary w-full">
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SCREEN 5: RECEIVER SELECTION (SHIPPER FLOW) ================= -->
+      <section id="screen-receivers" class="screen">
+        <div class="screen-header-between">
+          <div>
+            <span class="step-indicator">STEP 2 / 3 (SHIPPER)</span>
+            <h2 class="screen-title">Select Parcel Receiver</h2>
+            <p class="screen-subtitle">Receiver phone numbers are masked (showing only the last 3 digits) in compliance with privacy regulations.</p>
+          </div>
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="input-search-receiver" placeholder="Search receiver name...">
+          </div>
+        </div>
+
+        <!-- Receivers Grid -->
+        <div class="receivers-grid" id="receivers-grid">
+          <!-- Dynamically populated receiver cards -->
+        </div>
+
+        <div class="screen-footer-between">
+          <button class="btn-secondary" id="btn-back-from-receivers">
+            ← Back
+          </button>
+          <div class="help-text">
+            * Select a receiver to check locker availability and unlock an assigned compartment.
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SCREEN 6: SHIPPER DEPOSIT & SENSOR ================= -->
+      <section id="screen-deposit" class="screen">
+        <div class="deposit-layout">
+          <!-- 3D Locker Illustration & Status -->
+          <div class="locker-showcase-panel">
+            <div class="locker-unit-visual">
+              <div class="locker-door-graphic" id="deposit-door-graphic">
+                <div class="locker-handle"></div>
+                <div class="locker-mesh-vents">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="locker-id-plate" id="deposit-locker-plate">L02</div>
+                <div class="locker-led-status open-pulse" id="deposit-locker-led"></div>
+              </div>
+            </div>
+
+            <div class="deposit-status-badge open" id="deposit-door-status-text">
+              🚪 DOOR UNLOCKED & OPEN • READY FOR DEPOSIT
+            </div>
+          </div>
+
+          <!-- Interactive Sensor Steps -->
+          <div class="deposit-control-panel">
+            <div class="panel-box">
+              <span class="tag-role">DEPOSIT WORKFLOW</span>
+              <h3 class="panel-heading">Place Parcel in Compartment <span class="highlight-text" id="deposit-target-locker">L02</span></h3>
+
+              <div class="receiver-summary-card">
+                <div class="summary-row">
+                  <span>Receiver:</span>
+                  <strong id="deposit-rec-name">Alice Johnson</strong>
+                </div>
+                <div class="summary-row">
+                  <span>Phone Number:</span>
+                  <strong id="deposit-rec-phone">***678</strong>
+                </div>
+                <div class="summary-row">
+                  <span>Location / Unit:</span>
+                  <strong id="deposit-rec-unit">Tower A - Apt 1204</strong>
+                </div>
+              </div>
+
+              <!-- Sensor Verification Widget -->
+              <div class="sensor-flow-box">
+                <div class="sensor-step-row active" id="sensor-step-1">
+                  <div class="sensor-icon">
+                    <span class="pulse-ring"></span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                  </div>
+                  <div class="sensor-info">
+                    <h4>Parcel Detection Sensors (IR & Weight)</h4>
+                    <p id="sensor-deposit-desc">Waiting for parcel to be placed inside the locker...</p>
+                  </div>
+                </div>
+
+                <!-- Interactive Trigger for Demo / Hardware Emulation -->
+                <button class="btn-accent-glow w-full" id="btn-simulate-place-parcel">
+                  📦 Place Parcel Inside Locker (Simulate Sensor)
+                </button>
+              </div>
+
+              <!-- Auto closing countdown (hidden initially) -->
+              <div class="deposit-complete-card hidden" id="deposit-complete-card">
+                <div class="success-checkmark">✓</div>
+                <h4>Sensor Confirmed: Parcel Detected!</h4>
+                <p>Compartment door will automatically close and lock securely in <strong id="deposit-countdown">3</strong> seconds.</p>
+              </div>
+
+              <div class="deposit-receipt hidden" id="deposit-receipt">
+                <div class="receipt-header">PARCEL DEPOSIT RECEIPT</div>
+                <div class="summary-row"><span>Transaction ID:</span><strong id="receipt-tx-id">#TX-1002</strong></div>
+                <div class="summary-row"><span>Compartment:</span><strong id="receipt-locker">L02</strong></div>
+                <div class="summary-row"><span>Status:</span><strong class="text-success">Deposited</strong></div>
+                <div class="summary-row"><span>Timestamp:</span><strong id="receipt-time">2026-10-08 20:50</strong></div>
+                <button class="btn-primary w-full mt-3" id="btn-finish-deposit">
+                  Finish & Return to Start Screen
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SCREEN 7: RECEIVER COLLECTION & SENSOR ================= -->
+      <section id="screen-collect" class="screen">
+        <div class="deposit-layout">
+          <!-- 3D Locker Visual -->
+          <div class="locker-showcase-panel">
+            <div class="locker-unit-visual">
+              <div class="locker-door-graphic" id="collect-door-graphic">
+                <div class="locker-handle"></div>
+                <div class="locker-mesh-vents">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="locker-id-plate" id="collect-locker-plate">L02</div>
+                <div class="locker-led-status open-pulse" id="collect-locker-led"></div>
+              </div>
+            </div>
+
+            <div class="deposit-status-badge open" id="collect-door-status-text">
+              🚪 LOCKER UNLOCKED • READY FOR COLLECTION
+            </div>
+          </div>
+
+          <!-- Collection Flow Panel -->
+          <div class="deposit-control-panel">
+            <div class="panel-box">
+              <span class="tag-role">COLLECTION WORKFLOW</span>
+              <h3 class="panel-heading">Retrieve Parcel from Compartment <span class="highlight-text" id="collect-target-locker">L02</span></h3>
+
+              <div class="receiver-summary-card">
+                <div class="summary-row">
+                  <span>Welcome:</span>
+                  <strong id="collect-rec-name">Alice Johnson</strong>
+                </div>
+                <div class="summary-row">
+                  <span>Assigned Locker:</span>
+                  <strong id="collect-rec-locker">Compartment L02</strong>
+                </div>
+                <div class="summary-row">
+                  <span>Deposited At:</span>
+                  <strong id="collect-deposited-time">Today 15:30</strong>
+                </div>
+                <div class="summary-row">
+                  <span>Deposited By:</span>
+                  <strong id="collect-shipper-name">Alex Smith (SHIP-889)</strong>
+                </div>
+              </div>
+
+              <!-- Sensor Verification Widget -->
+              <div class="sensor-flow-box" id="collect-sensor-flow-box">
+                <div class="sensor-step-row active">
+                  <div class="sensor-icon">
+                    <span class="pulse-ring"></span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+                  </div>
+                  <div class="sensor-info">
+                    <h4>Parcel Removal Sensor</h4>
+                    <p id="sensor-collect-desc">Please remove your package from the locker compartment...</p>
+                  </div>
+                </div>
+
+                <!-- Interactive Trigger for Demo / Hardware Emulation -->
+                <button class="btn-accent-glow w-full" id="btn-simulate-remove-parcel">
+                  📤 Remove Parcel from Locker (Simulate Sensor)
+                </button>
+              </div>
+
+              <!-- Auto closing countdown -->
+              <div class="deposit-complete-card hidden" id="collect-complete-card">
+                <div class="success-checkmark">✓</div>
+                <h4>Sensor Confirmed: Parcel Removed!</h4>
+                <p>Compartment door will automatically close and lock in <strong id="collect-countdown">3</strong> seconds.</p>
+              </div>
+
+              <div class="deposit-receipt hidden" id="collect-receipt">
+                <div class="receipt-header">PARCEL COLLECTION RECEIPT</div>
+                <div class="summary-row"><span>Compartment:</span><strong id="collect-receipt-locker">L02</strong></div>
+                <div class="summary-row"><span>Transaction Status:</span><strong class="text-success">Collected</strong></div>
+                <div class="summary-row"><span>Collection Time:</span><strong id="collect-receipt-time">2026-10-08 20:52</strong></div>
+                <button class="btn-primary w-full mt-3" id="btn-finish-collect">
+                  Finish & Return to Start Screen
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= MODAL: HARDWARE LOCKER STATUS ================= -->
+      <div class="modal-overlay hidden" id="modal-hardware">
+        <div class="modal-box">
+          <div class="modal-header">
+            <h3>Locker Hardware Monitor (6 Compartments)</h3>
+            <button class="modal-close-btn" id="btn-close-hardware">&times;</button>
+          </div>
+          <div class="lockers-grid-preview" id="lockers-grid-preview">
+            <!-- Dynamically populated 6 lockers -->
+          </div>
+          <div class="modal-footer">
+            <span class="info-note">● Hardware states are synchronized in real-time with relay locks and IR sensors.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= MODAL: AUDIT LOG VIEWER ================= -->
+      <div class="modal-overlay hidden" id="modal-audit">
+        <div class="modal-box wide">
+          <div class="modal-header">
+            <div>
+              <h3>Security & Audit Trail Logs</h3>
+              <p class="modal-sub">Tracks: user_id, role, receiver_id, locker_id, timestamp, auth_result, parcel_status</p>
+            </div>
+            <button class="modal-close-btn" id="btn-close-audit">&times;</button>
+          </div>
+          <div class="audit-table-wrap">
+            <table class="audit-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>User ID</th>
+                  <th>Role</th>
+                  <th>Receiver ID</th>
+                  <th>Locker</th>
+                  <th>Auth Result</th>
+                  <th>Parcel Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="audit-table-body">
+                <!-- Dynamically populated logs -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toast Notification Alert -->
+      <div class="toast-container" id="toast-container"></div>
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
